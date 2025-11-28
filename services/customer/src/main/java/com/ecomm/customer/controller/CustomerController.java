@@ -7,16 +7,28 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
     @Autowired
     private CustomerService customerService;
+    @PostMapping
     public ResponseEntity<Customer> createCustomer(@RequestBody @Valid CustomerDto customerDto){
         return ResponseEntity.status(HttpStatus.CREATED).body(customerService.createCustomer(customerDto));
+    }
+    @PutMapping
+    public ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer){
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(customerService.updateCustomer(customer));
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteCustomer(Integer id){
+        customerService.deleteCustomer(id);
+        return ResponseEntity.accepted().build();
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getCustomerById(Integer id){
+        return ResponseEntity.ok(customerService.getCustomerById(id));
     }
 }
