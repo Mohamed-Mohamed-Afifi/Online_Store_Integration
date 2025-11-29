@@ -23,12 +23,12 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(customerService.updateCustomer(customer));
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteCustomer(Integer id){
+    public ResponseEntity<?> deleteCustomer(@PathVariable Integer id){
         customerService.deleteCustomer(id);
         return ResponseEntity.accepted().build();
     }
     @GetMapping("/{id}")
-    public ResponseEntity<?> getCustomerById(Integer id){
+    public ResponseEntity<?> getCustomerById(@PathVariable Integer id){
         return ResponseEntity.ok(customerService.getCustomerById(id));
     }
 }
