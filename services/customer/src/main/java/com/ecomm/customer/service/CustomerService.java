@@ -9,6 +9,8 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CustomerService {
     @Autowired
@@ -16,7 +18,7 @@ public class CustomerService {
     public Customer createCustomer(@Valid CustomerDto customerDto) {
         Customer customer=new Customer();
         customer.setName(customerDto.getName());
-        customer.setAge(customer.getAge());
+        customer.setAge(customerDto.getAge());
         customer.setEmail(customerDto.getEmail());
         return customerRepo.save(customer);
     }
@@ -53,5 +55,9 @@ public class CustomerService {
             throw new CustomerNotFoundException("customer not found");
         }
         return customerRepo.findById(id).get();
+    }
+
+    public List<Customer> getAllCustomer() {
+        return customerRepo.findAll();
     }
 }
