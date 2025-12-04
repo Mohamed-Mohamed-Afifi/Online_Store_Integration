@@ -33,6 +33,7 @@ public class ProductService {
     public List<Product> findAllProducts(){
         return productRepo.findAll();
     }
+
     public List<ProductPurchaseResponse> purchaseProducts(List<ProductPurchaseRequest> productPurchaseRequests){
 //        Check if All request product is stored in db
         List<Integer> purchaseIds=productPurchaseRequests.stream().map(ProductPurchaseRequest::getProductId).toList();
