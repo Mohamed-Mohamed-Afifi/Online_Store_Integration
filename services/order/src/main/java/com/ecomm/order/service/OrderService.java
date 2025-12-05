@@ -8,7 +8,10 @@ import com.ecomm.order.entity.Order;
 import com.ecomm.order.entity.OrderLine;
 import com.ecomm.order.entity.OrderRequest;
 import com.ecomm.order.entity.PurchaseRequest;
+import com.ecomm.order.kafka.OrderConfirmation;
+import com.ecomm.order.kafka.OrderProducer;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,11 +21,12 @@ public class OrderService {
     private final OrderRepo orderRepo;
     private final OrderLineRepo orderLineRepo;
     private final ProductClient productClient;
+    private final OrderProducer orderProducer;
     public Order createOrder(OrderRequest order) {
 //        Check Customer is exist using OpenFeign
         var customer=customerClient.findCustomerById(order.getCustomerId()).orElseThrow(()->new RuntimeException("cant not create order"));
 //        Purchase products
-        productClient.purchaseRequests(order.getPurchaseRequests());
+        var purchaseResponses=productClient.purchaseRequests(order.getPurchaseRequests());
 //        presist Order
         Order order1=new Order();
         order1.setReference(order.getReference());
@@ -30,7 +34,7 @@ public class OrderService {
         order1.setCustomerId(order.getCustomerId());
         order1.setTotalAmount(order.getTotalAmount());
         order1.setPaymentMethod(order.getPaymentMethod());
-        orderRepo.save(order1);
+       Order PresistedOrederOrder2= orderRepo.save(order1);
 //        presist orderline
         for(PurchaseRequest purchaseRequest:order.getPurchaseRequests()){
             OrderLine orderLine=new OrderLine();
@@ -41,7 +45,20 @@ public class OrderService {
         }
 //        Start Payment
 //        Send Order Confiramtion to notification sercice (Kafka)
+        orderProducer.sendOrderConfirmation(
+                new OrderConfirmation(
+                        order.getReference(),
+                        order.getTotalAmount(),
+                        order.getPaymentMethod(),
+                        customer,
+                        purchaseResponses
 
-        return orderRepo.save(null);
+                )
+        );
+        return PresistedOrederOrder2;
+    }
+
+    public Order findOrderById(Integer id) {
+        return orderRepo.findById(id).get();
     }
 }
