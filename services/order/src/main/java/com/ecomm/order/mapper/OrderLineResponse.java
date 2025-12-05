@@ -1,4 +1,4 @@
-package com.ecomm.order.entity;
+package com.ecomm.order.mapper;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PurchaseRequest {
-    private Integer productId;
+public class OrderLineResponse {
+    private Integer orderLineId;
     private double quantity;
 }

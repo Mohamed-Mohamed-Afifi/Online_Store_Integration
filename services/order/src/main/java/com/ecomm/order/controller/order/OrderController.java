@@ -1,14 +1,10 @@
 package com.ecomm.order.controller.order;
 
-import com.ecomm.order.entity.Order;
 import com.ecomm.order.entity.OrderRequest;
 import com.ecomm.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/orders")
@@ -19,5 +15,9 @@ public class OrderController {
     @PostMapping
     public ResponseEntity<?> createOrder(@RequestBody OrderRequest order){
         return ResponseEntity.ok(orderService.createOrder(order));
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findOrderById(@PathVariable Integer id){
+        return ResponseEntity.ok(orderService.findOrderById(id));
     }
 }

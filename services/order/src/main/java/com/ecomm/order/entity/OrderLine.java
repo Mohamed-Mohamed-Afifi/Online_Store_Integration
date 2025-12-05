@@ -18,7 +18,7 @@ public class OrderLine {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
-    private Order order;
+    private OrderEntity order;
 
     private Integer product_id;
     private double quantity;
