@@ -1,6 +1,9 @@
 package com.ecomm.order.service;
 
 import com.ecomm.order.clients.customer.CustomerClient;
+import com.ecomm.order.clients.payment.Customer;
+import com.ecomm.order.clients.payment.PaymentClient;
+import com.ecomm.order.clients.payment.PaymentRequest;
 import com.ecomm.order.clients.product.ProductClient;
 import com.ecomm.order.dao.OrderLineRepo;
 import com.ecomm.order.dao.OrderRepo;
@@ -21,6 +24,7 @@ public class OrderService {
     private final OrderLineRepo orderLineRepo;
     private final ProductClient productClient;
     private final OrderProducer orderProducer;
+    private final PaymentClient paymentClient;
     public OrderEntity createOrder(OrderRequest order) {
 //        Check Customer is exist using OpenFeign
         var customer=customerClient.findCustomerById(order.getCustomerId()).orElseThrow(()->new RuntimeException("cant not create order"));
@@ -43,6 +47,14 @@ public class OrderService {
             orderLineRepo.save(orderLine);
         }
 //        Start Payment
+        Customer customer1=new Customer();
+        customer1.setAge(customer.getAge());
+        customer1.setId(customer.getId());
+        customer1.setName(customer.getName());
+        customer1.setEmail(customer.getEmail());
+        var paymentResponse=paymentClient.requestOrderPayment(
+                new PaymentRequest(null, order.getTotalAmount(),order.getPaymentMethod(),order.getId(),order.getReference(),customer1)
+        );
 //        Send Order Confiramtion to notification sercice (Kafka)
         orderProducer.sendOrderConfirmation(
                 new OrderConfirmation(
