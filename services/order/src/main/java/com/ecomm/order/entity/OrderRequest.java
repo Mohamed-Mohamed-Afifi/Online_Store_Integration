@@ -19,7 +19,7 @@ public class OrderRequest {
     private Integer id;
 
     private String reference;
-    private Integer CustomerId;
+    private Integer customerId;
     private BigDecimal totalAmount;
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;

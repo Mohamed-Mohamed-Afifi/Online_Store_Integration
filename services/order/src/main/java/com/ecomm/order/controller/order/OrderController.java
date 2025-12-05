@@ -1,6 +1,5 @@
 package com.ecomm.order.controller.order;
 
-import com.ecomm.order.entity.Order;
 import com.ecomm.order.entity.OrderRequest;
 import com.ecomm.order.service.OrderService;
 import lombok.RequiredArgsConstructor;

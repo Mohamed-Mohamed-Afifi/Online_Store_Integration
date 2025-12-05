@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Service
 public class OrderMapper {
     public OrderLineResponse map(OrderLine orderLine){

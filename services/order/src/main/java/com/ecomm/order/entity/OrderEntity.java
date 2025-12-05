@@ -19,8 +19,8 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EntityListeners(AuditingEntityListener.class)
-public class Order {
+//@EntityListeners(AuditingEntityListener.class)
+public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -33,12 +33,12 @@ public class Order {
     @OneToMany(mappedBy = "order")
     @JsonIgnore
     private List<OrderLine> orderLines;
-    @CreatedDate
-    @Column(updatable = false)
-    private LocalDateTime createdAt;
-    @LastModifiedDate
-    @Column(updatable = true,insertable = false)
-    private LocalDateTime lastModifiedAt;
+//    @CreatedDate
+//    @Column(updatable = false)
+//    private LocalDateTime createdAt;
+//    @LastModifiedDate
+//    @Column(updatable = true,insertable = false)
+//    private LocalDateTime lastModifiedAt;
 
 
 }

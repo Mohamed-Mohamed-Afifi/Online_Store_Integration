@@ -10,6 +10,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PurchaseRequest {
-    private Integer product_id;
+    private Integer productId;
     private double quantity;
 }
