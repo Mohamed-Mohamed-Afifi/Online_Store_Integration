@@ -19,6 +19,10 @@ spring:
 
 application:
   config:
-    customer-url: http://localhost:8090/customer
-    product-url: http://localhost:8091/api/v1/products
-    payment-url: http://localhost:8093/api/v1/payments
+    customer-url: http://localhost:8222/customer
+    product-url: http://localhost:8222/api/v1/products
+    payment-url: http://localhost:8222/api/v1/payments
+eureka:
+  instance:
+    hostname: localhost
+    prefer-ip-address: true
