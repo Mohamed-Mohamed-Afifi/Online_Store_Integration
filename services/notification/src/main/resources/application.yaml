@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: notification
+
+  config:
+    import: "optional:configserver:http://localhost:8888"
+
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: paymentGroup,orderGroup
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.type.mapping: >
+          paymentNotificationRequest:com.ecomm.notification.kafka.PaymentNotificationRequest,
+          orderConfirmation:com.ecomm.notification.kafka.OrderConfirmation
+        spring.json.trusted.packages: "*"
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: mohamedfifi050@gmail.com      # غيره بالإيميل الحقيقي
+    password: bakf fozn bvcj vuwx    # غيره بكلمة المرور الخاصة بالتطبيق (App Password)
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.connectiontimeout: 5000
+      mail.smtp.timeout: 3000
+      mail.smtp.writetimeout: 5000
+      mail.smtp.ssl.trust: "*"

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+        }
+
+        .header h2 {
+            margin: 0;
+            color: #333333;
+        }
+
+        .content p {
+            font-size: 16px;
+            color: #555555;
+            line-height: 1.5;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: #000000;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 12px;
+            text-align: center;
+            color: #888888;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h2>Payment Confirmation</h2>
+    </div>
+    <div class="content">
+        <p>Hello <span th:text="${customerName}">Customer Name</span>,</p>
+        <p>Thank you for your payment. Here are your payment details:</p>
+        <p>Order Reference: <span th:text="${orderReference}">123456</span></p>
+        <p>Amount Paid: <span th:text="${amount}">$0.00</span></p>
+
+        <p>If you have any questions, feel free to contact our support team.</p>
+        <a href="#" class="btn">Contact Support</a>
+    </div>
+    <div class="footer">
+        &copy; 2025 Ecomm. All rights reserved.
+    </div>
+</div>
+</body>
+</html>
